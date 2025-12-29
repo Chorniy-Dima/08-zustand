@@ -1,4 +1,23 @@
+import { Metadata } from "next";
 import css from "./Home.module.css";
+
+export const metadata: Metadata = {
+  title: "NoteHub",
+  description: "We are sorry, curent page was not found",
+  openGraph: {
+    title: "Notehub",
+    description: "We are sorry, curent page was not found",
+    url: "https://07-routing-nextjs-rust-nu.vercel.app/",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Notehub",
+      },
+    ],
+  },
+};
 
 const NotFound = () => {
   return (

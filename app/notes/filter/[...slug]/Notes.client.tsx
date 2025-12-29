@@ -7,8 +7,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 
 import css from "./Notes.module.css";
 
@@ -19,12 +18,6 @@ interface NotesClientProps {
 const NotesClient = ({ slug }: NotesClientProps) => {
   const [name, setName] = useState("");
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  console.log(slug);
 
   const category = slug?.[0] === "all" ? undefined : slug?.[0];
 
@@ -54,16 +47,11 @@ const NotesClient = ({ slug }: NotesClientProps) => {
               onPageChange={setPage}
             />
           )}
-          <button className={css.button} onClick={openModal}>
+          <Link className={css.button} href={"/notes/action/create"}>
             Create note +
-          </button>
+          </Link>
         </header>
         <NoteList notes={data?.notes ?? []} />
-        {isModalOpen && (
-          <Modal onClose={closeModal}>
-            <NoteForm onClose={closeModal} />
-          </Modal>
-        )}
       </div>
     </>
   );
