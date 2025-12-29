@@ -1,5 +1,5 @@
 import css from "./NoteForm.module.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, QueryClient } from "@tanstack/react-query";
 import type { NoteMin } from "../../types/note";
 import { createNote } from "@/lib/api";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
@@ -9,6 +9,7 @@ interface NoteFormProps {
 }
 
 export default function NoteForm({ onClose }: NoteFormProps) {
+  const queryClient = new QueryClient();
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
   const handleChange = (
@@ -27,6 +28,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     onSuccess: () => {
       onClose();
       clearDraft();
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
   });
 

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import CreateNoteClient from "./CreateNote.client";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Create note",
   description: "Create new note on a dashboard",
   openGraph: {

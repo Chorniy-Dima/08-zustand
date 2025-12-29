@@ -15,13 +15,14 @@ export async function generateMetadata({
   params,
 }: SlugProps): Promise<Metadata> {
   const { slug } = await params;
+  const slugPath = slug.join("/");
   return {
-    title: "Filtered Notes",
-    description: `Notes filtered by tag "${slug}"`,
+    title: `${slug[0]} notes`,
+    description: `Notes filtered by tag "${slug[0]}"`,
     openGraph: {
-      title: "Filtered Notes",
-      description: `Notes filtered by tag "${slug}"`,
-      url: `https://07-routing-nextjs-rust-nu.vercel.app/notes/filter/${slug}`,
+      title: `${slug[0]} notes`,
+      description: `Notes filtered by tag "${slug[0]}"`,
+      url: `https://07-routing-nextjs-rust-nu.vercel.app/notes/filter/${slugPath}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
