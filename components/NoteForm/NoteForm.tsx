@@ -1,5 +1,5 @@
 import css from "./NoteForm.module.css";
-import { useMutation, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { NoteMin } from "../../types/note";
 import { createNote } from "@/lib/api";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
@@ -9,7 +9,7 @@ interface NoteFormProps {
 }
 
 export default function NoteForm({ onClose }: NoteFormProps) {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
   const handleChange = (
@@ -26,9 +26,9 @@ export default function NoteForm({ onClose }: NoteFormProps) {
   const mutationCreate = useMutation({
     mutationFn: (note: NoteMin) => createNote(note),
     onSuccess: () => {
-      onClose();
       clearDraft();
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      onClose();
     },
   });
 
@@ -48,7 +48,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             name="title"
             className={css.input}
             onChange={handleChange}
-            defaultValue={draft?.title}
+            value={draft?.title}
             required
           />
         </div>
@@ -61,7 +61,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             rows={8}
             className={css.textarea}
             onChange={handleChange}
-            defaultValue={draft?.content}
+            value={draft?.content}
             required
           />
         </div>
@@ -73,7 +73,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
             name="tag"
             className={css.select}
             onChange={handleChange}
-            defaultValue={draft?.tag}
+            value={draft?.tag}
           >
             <option value="Todo">Todo</option>
             <option value="Work">Work</option>
